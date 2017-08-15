@@ -3,9 +3,41 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <script type="text/javascript" src="../js/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+    function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        var consName = decodeURI(unescape(r[2]));
+        return consName;
+    }
+    return null;
+}
+
+      $(document).ready(
+        function () {
+
+          var ConsName = getQueryString("consName");
+          $.ajax({
+            url:"http://web.juhe.cn:8080/constellation/getAll",
+            data:{
+              consName:"狮子座",
+              type:"today",
+              key:"0446dc25efcfc198c71f6d2dc9e6a11d"
+            },
+            type:"POST",
+            success:function(data,status) {
+              $("#ConsName").text(data.summary);
+            }
+
+          });
+        }
+
+      );
+    </script>
   </head>
   <body>
-    
-
+    <label for="" id="ConsName"></label>
   </body>
 </html>
